@@ -1,6 +1,6 @@
 <template>
-    <form>
-      登录
+    <form class="LoginForm">
+      <span style="text-align: center">登录</span>
     </form>
 </template>
 
@@ -11,5 +11,9 @@ export default {
 </script>
 
 <style scoped>
-
+.LoginForm{
+  height: 2000px;
+  vertical-align: center;
+  horiz-align: center;
+}
 </style>

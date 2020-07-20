@@ -1,9 +1,17 @@
 
 <template>
   <div>
-    <LogoBar></LogoBar>
-    <LoginForm></LoginForm>
-    <BottomAbout></BottomAbout>
+    <el-container>
+      <el-header>
+        <LogoBar></LogoBar>
+      </el-header>
+      <el-main>
+        <LoginForm></LoginForm>
+      </el-main>
+      <el-footer>
+        <BottomAbout></BottomAbout>
+      </el-footer>
+    </el-container>
   </div>
 </template>
 

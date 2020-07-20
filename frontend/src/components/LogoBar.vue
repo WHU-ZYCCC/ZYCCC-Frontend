@@ -14,21 +14,38 @@ export default {
 </script>
 
 <style scoped>
-  @media screen {
+  @media screen and (min-width: 900px) {
+    .logo{
+      width: 5%;
+      float: left;
+    }
+    .logoBar{
 
+    }
+    .logoDense{
+      display: flex;
+      width: 100%;
+      top:0px;
+      left: 0px;
+      position: fixed;
+      background-image: linear-gradient(to right,rgb(31,116,189),rgb(60,189,236));
+    }
   }
-.logo{
-  width: 5%;
-  float: left;
-}
-.logoBar{
+  @media screen and (max-width: 899px){
+    .logo{
+      width: 20%;
+      float: left;
+    }
+    .logoBar{
 
-}
-.logoDense{
-  width: 100%;
-  top:0px;
-  left: 0px;
-  position: fixed;
-  background-color: #448aff;
-}
+    }
+    .logoDense{
+      display: flex;
+      width: 100%;
+      top:0px;
+      left: 0px;
+      position: fixed;
+      background-image: linear-gradient(to right,rgb(31,116,189),rgb(60,189,236));
+    }
+  }
 </style>

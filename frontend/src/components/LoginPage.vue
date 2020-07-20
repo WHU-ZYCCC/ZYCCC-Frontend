@@ -1,9 +1,12 @@
 
 <template>
   <div>
-    <el-container>
+<!--    <LogoBar></LogoBar>-->
+<!--    <LoginForm></LoginForm>-->
+<!--    <BottomAbout></BottomAbout>-->
+    <el-container class="LoginContiner">
       <el-header>
-        <LogoBar></LogoBar>
+        <TopBar></TopBar>
       </el-header>
       <el-main>
         <LoginForm></LoginForm>
@@ -16,15 +19,16 @@
 </template>
 
 <script>
-import LogoBar from './LogoBar'
+import TopBar from './TopBar'
 import LoginForm from './LoginForm'
 import BottomAbout from './BottomAbout'
 export default {
   name: 'LoginPage',
-  components: {BottomAbout, LoginForm, LogoBar}
+  components: {TopBar, BottomAbout, LoginForm}
 }
 </script>
 
 <style scoped>
-
+  .el-container{height:100%;padding:0;margin:0;width:100%;}
+  #app>div[data-v-23246054]{width:100%;}
 </style>

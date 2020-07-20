@@ -9,6 +9,7 @@ import 'vue-material/dist/vue-material.min.css'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
 
 Vue.config.productionTip = false
 Vue.use(VueMaterial)

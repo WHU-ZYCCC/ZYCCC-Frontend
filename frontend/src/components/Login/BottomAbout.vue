@@ -2,7 +2,7 @@
     <div style="width:100%">
       <div class="ButtomAbout2">
         <p>&nbsp;</p>
-        <el-link>©2020 WHU-ZYCCC All rights reserved</el-link>
+        <el-link disabled>©2020 WHU-ZYCCC All rights reserved</el-link>
         <el-link type="success" href="https://github.com/WHU-ZYCCC">欢迎访问我们的GitHub小组</el-link>
       </div>
     </div>

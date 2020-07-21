@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-page-header @back="goBack" content="登录页面"></el-page-header>
+      <el-page-header @back="goBack" content="登录"></el-page-header>
     </div>
 </template>
 

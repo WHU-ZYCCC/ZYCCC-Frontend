@@ -1,9 +1,6 @@
 
 <template>
   <div>
-<!--    <LogoBar></LogoBar>-->
-<!--    <LoginForm></LoginForm>-->
-<!--    <BottomAbout></BottomAbout>-->
     <el-container class="LoginContiner">
       <el-header>
         <TopBar></TopBar>

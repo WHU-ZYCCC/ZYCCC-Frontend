@@ -2,6 +2,7 @@
   <div>
     <el-container class="HomeContiner">
       <el-header>
+        <HomeTopBar></HomeTopBar>
       </el-header>
       <el-main>
         <el-aside><NavMenu></NavMenu></el-aside>
@@ -17,9 +18,10 @@
 <script>
 import NavMenu from './NavMenu'
 import BottomAbout from '../Login/BottomAbout'
+import HomeTopBar from './HomeTopBar'
 export default {
   name: 'HomePage',
-  components: {BottomAbout, NavMenu}
+  components: {HomeTopBar, BottomAbout, NavMenu}
 }
 </script>
 

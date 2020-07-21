@@ -8,7 +8,7 @@
     <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-location"></i>
-        <span slot="title">导航一</span>
+        <span slot="title" @click="dialogVisible = true">导航一</span>
       </template>
       <el-menu-item-group>
         <span slot="title">分组一</span>
@@ -36,6 +36,17 @@
       <span slot="title">导航四</span>
     </el-menu-item>
   </el-menu>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -44,7 +55,8 @@ export default {
   name: 'NavMenu',
   data () {
     return {
-      isCollapse: true
+      isCollapse: true,
+      dialogVisible: false
     }
   },
   methods: {
@@ -59,7 +71,5 @@ export default {
 </script>
 
 <style scoped>
-  .el-radio-group{
-    left: 0px;
-  }
+
 </style>

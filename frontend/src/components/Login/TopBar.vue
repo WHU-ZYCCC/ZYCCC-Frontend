@@ -9,7 +9,7 @@ export default {
   name: 'TopBar',
   methods: {
     goBack () {
-      console.log('go back')
+      window.history.go(-1)
     }
   }
 }

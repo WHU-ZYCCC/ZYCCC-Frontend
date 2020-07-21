@@ -5,8 +5,9 @@
           <HomeTopBar></HomeTopBar>
         </el-header>
         <el-main>
-          <NavMenu></NavMenu>
-          <HomeMain></HomeMain>
+          <el-row><NavMenu></NavMenu></el-row>
+          <el-row>&nbsp;</el-row>
+          <el-row><HomeMain></HomeMain></el-row>
         </el-main>
         <el-footer>
           <el-divider></el-divider>

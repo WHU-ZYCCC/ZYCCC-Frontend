@@ -38,7 +38,6 @@ export default {
 
 <style scoped>
 .loginForm{
-  right: 20%;
   width: 350px;
   height: 400px;
   float: right;

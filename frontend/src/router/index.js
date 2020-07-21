@@ -4,6 +4,7 @@ import LoginPage from '../components/Login/LoginPage'
 import HomePage from '../components/Home/HomePage'
 import ManagePage from '../components/Manage/ManagePage'
 import AnnouncementPage from '../components/Announcement/AnnouncementPage'
+import ImageIdentify from '../components/ImageIdentify'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/announcement',
       name: 'AnnouncementPage',
       component: AnnouncementPage
+    },
+    {
+      path: '/imageidentify',
+      name: 'ImageIdentify',
+      component: ImageIdentify
     }
   ]
 })

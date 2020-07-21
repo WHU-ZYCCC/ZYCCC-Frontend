@@ -1,15 +1,6 @@
 <template>
   <div class="block">
     <el-row v-for="item in items" :key="item.message">{{item.message}}</el-row>
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[10, 20, 30, 40]"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="40">
-    </el-pagination>
   </div>
 </template>
 

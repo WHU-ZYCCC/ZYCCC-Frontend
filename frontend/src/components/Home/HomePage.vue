@@ -5,8 +5,10 @@
           <HomeTopBar></HomeTopBar>
         </el-header>
         <el-main>
-          <el-row><NavMenu></NavMenu></el-row>
-          <el-row>&nbsp;</el-row>
+          <el-row>
+            <el-col span="10">&nbsp;</el-col>
+            <el-col ><NavMenu></NavMenu></el-col>
+          </el-row>
           <el-row><HomeMain></HomeMain></el-row>
         </el-main>
         <el-footer>

@@ -1,6 +1,6 @@
 <template>
   <div>
-  <img src="https://avatars2.githubusercontent.com/u/68144027?s=400&u=85dadb63a5003fd26f97f3197529dc2357c89522&v=4">
+  <el-image src="https://avatars2.githubusercontent.com/u/68144027?s=400&u=85dadb63a5003fd26f97f3197529dc2357c89522&v=4"></el-image>
   <strong>ZYCCC实验室管理系统</strong>
   </div>
 </template>
@@ -12,11 +12,13 @@ export default {
 </script>
 
 <style scoped>
-  img{
+  .el-image{
     width: 5%;
   }
 @media screen and (min-width: 800px){
   strong{
+    position: relative;
+    top:-15px;
     margin-left: 20px;
     font-family: 黑体;
     font-size: 25px;

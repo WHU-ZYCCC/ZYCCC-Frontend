@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="TopBar">
       Top
     </div>
 </template>
@@ -12,5 +12,7 @@ export default {
 </script>
 
 <style scoped>
-
+.TopBar{
+  text-align: center;
+}
 </style>

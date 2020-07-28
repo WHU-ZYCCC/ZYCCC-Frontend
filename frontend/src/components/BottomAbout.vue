@@ -1,6 +1,6 @@
 <template>
     <div style="width:100%">
-      <div class="ButtomAbout2" >
+      <div class="ButtomAbout" >
         <p>&nbsp;</p>
         <el-link disabled>©2020 WHU-ZYCCC All rights reserved</el-link>
         <el-link type="success" href="https://github.com/WHU-ZYCCC">欢迎访问我们的GitHub小组</el-link>
@@ -15,5 +15,7 @@ export default {
 </script>
 
 <style scoped>
-
+.ButtomAbout{
+  text-align: center;
+}
 </style>

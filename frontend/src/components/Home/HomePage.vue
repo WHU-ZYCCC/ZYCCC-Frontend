@@ -17,7 +17,7 @@
 
 <script>
 import NavMenu from './NavMenu'
-import BottomAbout from '../Login/BottomAbout'
+import BottomAbout from '../BottomAbout'
 import HomeTopBar from './HomeTopBar'
 import HomeMain from './HomeMain'
 export default {

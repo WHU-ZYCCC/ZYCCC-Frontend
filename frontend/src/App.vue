@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import TopBar from './components/Login/TopBar'
-import BottomAbout from './components/Login/BottomAbout'
+import TopBar from './components/TopBar'
+import BottomAbout from './components/BottomAbout'
 export default {
   name: 'App',
   components: {BottomAbout, TopBar}

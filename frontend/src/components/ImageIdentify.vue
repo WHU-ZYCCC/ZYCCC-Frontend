@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import BottomAbout from './Login/BottomAbout'
+import BottomAbout from './BottomAbout'
 export default {
   name: 'ImageIdentify',
   components: {BottomAbout},

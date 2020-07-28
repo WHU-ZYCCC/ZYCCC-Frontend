@@ -25,9 +25,6 @@
           <el-col class="hidden-xs-only" span="6" >&nbsp;</el-col>
         </el-row>
       </el-body>
-      <el-footer>
-        <BottomAbout></BottomAbout>
-      </el-footer>
     </el-container>
   </div>
 </template>

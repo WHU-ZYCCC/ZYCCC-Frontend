@@ -11,10 +11,6 @@
           </el-row>
           <el-row><HomeMain></HomeMain></el-row>
         </el-main>
-        <el-footer>
-          <el-divider></el-divider>
-          <bottom-about></bottom-about>
-        </el-footer>
       </el-container>
   </div>
 </template>

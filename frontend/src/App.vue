@@ -1,12 +1,20 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div>
+    <TopBar></TopBar>
+    <div id="app">
+      <router-view/>
+    </div>
+    <el-divider></el-divider>
+    <BottomAbout></BottomAbout>
   </div>
 </template>
 
 <script>
+import TopBar from './components/Login/TopBar'
+import BottomAbout from './components/Login/BottomAbout'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {BottomAbout, TopBar}
 }
 </script>
 

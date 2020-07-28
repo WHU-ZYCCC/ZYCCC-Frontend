@@ -8,9 +8,6 @@
       <el-main>
         <LoginForm></LoginForm>
       </el-main>
-      <el-footer>
-        <BottomAbout></BottomAbout>
-      </el-footer>
     </el-container>
   </div>
 </template>

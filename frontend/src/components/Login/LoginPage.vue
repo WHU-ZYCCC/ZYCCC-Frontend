@@ -1,17 +1,23 @@
 <template>
   <div>
-    <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="账号" prop="userName">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="pass">
-        <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <el-row>
+      <el-col :sm="4" :xs="0">&nbsp;</el-col>
+      <el-col :sm="16" :xs="20">
+        <el-form :model="LoginForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="账号" prop="userName">
+            <el-input v-model="LoginForm.userName" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="pass">
+            <el-input type="password" v-model="LoginForm.pass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('LoginForm')">提交</el-button>
+            <el-button @click="resetForm('LoginForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+      <el-col :sm="4" :xs="0">&nbsp;</el-col>
+    </el-row>
   </div>
 </template>
 
@@ -23,7 +29,7 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.ruleForm.checkPass !== '') {
+        if (this.LoginForm.pass !== '') {
           this.$refs.ruleForm.validateField('checkPass')
         }
         callback()
@@ -31,11 +37,14 @@ export default {
     }
     var validateUserName = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入用户名'))
+        return callback(new Error('用户名不能为空'))
       }
+      setTimeout(() => {
+        callback()
+      }, 1000)
     }
     return {
-      ruleForm: {
+      LoginForm: {
         userName: '',
         pass: ''
       },
@@ -70,9 +79,9 @@ export default {
 <style scoped>
   /*.el-container{height:100%;padding:0;margin:0;width:100%;}*/
   /*#app>div[data-v-23246054]{width:100%;}*/
-  #el-form{
-    border: grey solid;
-    border-radius: 20px;
-    box-shadow: black;
+  .el-form{
+    /*border: grey solid;*/
+    /*border-radius: 20px;*/
+    /*box-shadow: black;*/
   }
 </style>

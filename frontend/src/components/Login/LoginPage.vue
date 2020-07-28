@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row>
-      <el-col :sm="4" :xs="0">&nbsp;</el-col>
-      <el-col :sm="16" :xs="20">
+      <el-col :sm="7" :xs="0">&nbsp;</el-col>
+      <el-col :sm="10" :xs="20">
         <el-form :model="LoginForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="账号" prop="userName">
             <el-input v-model="LoginForm.userName" autocomplete="off"></el-input>
@@ -16,7 +16,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-      <el-col :sm="4" :xs="0">&nbsp;</el-col>
+      <el-col :sm="7" :xs="0">&nbsp;</el-col>
     </el-row>
   </div>
 </template>

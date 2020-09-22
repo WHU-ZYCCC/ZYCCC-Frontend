@@ -16,7 +16,7 @@
       style="width: 100%">
       <el-table-column
         align='center'
-        label="日期"
+        label="添加日期"
       >
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -26,7 +26,7 @@
       <el-table-column
         align='center'
         prop="title"
-        label="标题"
+        label="器材名"
       >
       </el-table-column>
       <el-table-column
@@ -63,7 +63,7 @@
       title="提示"
       :visible.sync="dialogVisible"
       :before-close="handleClose">
-      <span>这是一段信息</span>
+      <span>这是一段器材信息</span>
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
@@ -88,7 +88,7 @@ export default {
     for (var i = 0; i < 147; i++) {
       that.tableData[i] = {
         date: '日期' + i,
-        title: '标题' + i
+        title: '器材' + i
       }
     }
   },

@@ -1,10 +1,8 @@
-<template>
-
-</template>
+<template></template>
 
 <script>
 export default {
-name: "iteminfo"
+  name: 'iteminfo'
 }
 </script>
 

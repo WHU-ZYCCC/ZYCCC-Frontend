@@ -7,7 +7,7 @@
           style="alignment: center"
           size="mini"
           type="success"
-          >添加</el-button>
+        >添加</el-button>
       </el-col>
     </el-row>
     <el-table
@@ -17,7 +17,7 @@
       <el-table-column
         align='center'
         label="日期"
-        >
+      >
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.date }}</span>
@@ -27,12 +27,12 @@
         align='center'
         prop="title"
         label="标题"
-        >
+      >
       </el-table-column>
       <el-table-column
         align='center'
         label="操作"
-        >
+      >
         <template slot-scope="scope">
           <el-button
             size="mini"
@@ -49,16 +49,16 @@
         </template>
       </el-table-column>
     </el-table>
-      <div style="text-align: center;margin-top: 30px;">
-        <el-pagination
-          :current-page="currentPage"
-          :page-size="pageSize"
-          :pager-count="5"
-          layout="total, pager"
-          :total="tableData.length"
-          @current-change="handleCurrentChange"
-        />
-      </div>
+    <div style="text-align: center;margin-top: 30px;">
+      <el-pagination
+        :current-page="currentPage"
+        :page-size="pageSize"
+        :pager-count="5"
+        layout="total, pager"
+        :total="tableData.length"
+        @current-change="handleCurrentChange"
+      />
+    </div>
     <el-dialog
       title="提示"
       :visible.sync="dialogVisible"

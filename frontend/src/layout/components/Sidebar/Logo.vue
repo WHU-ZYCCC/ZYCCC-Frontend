@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      title: 'Vue Admin Template',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: 'ZYCCC实验室管理系统',
+      logo: 'https://avatars2.githubusercontent.com/u/68144027?s=400&u=85dadb63a5003fd26f97f3197529dc2357c89522&v=4'
     }
   }
 }

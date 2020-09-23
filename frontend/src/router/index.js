@@ -81,6 +81,32 @@ export const constantRoutes = [
   },
 
   {
+    path: '/Charts',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Charts',
+        component: () => import('@/views/charts/index'),
+        meta: { title: '图表', icon: 'chart' }
+      }
+    ]
+  },
+
+  {
+    path: '/map',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'map',
+        component: () => import('@/views/BaiduMap/Map'),
+        meta: { title: '地图', icon: 'form' }
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
@@ -174,18 +200,6 @@ export const constantRoutes = [
     ]
   },
 
-  {
-    path: '/Charts',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Charts',
-        component: () => import('@/views/charts/index'),
-        meta: { title: '图表', icon: 'chart' }
-      }
-    ]
-  },
   // {
   //   path: 'external-link',
   //   component: Layout,
@@ -196,19 +210,6 @@ export const constantRoutes = [
   //     }
   //   ]
   // },
-
-  {
-    path: '/map',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'map',
-        component: () => import('@/views/BaiduMap/Map'),
-        meta: { title: 'Map', icon: 'form' }
-      }
-    ]
-  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

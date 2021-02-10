@@ -100,7 +100,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'map',
-        component: () => import('@/views/BaiduMap/Map'),
+        component: () => import('@/views/TencentMap/Map'),
         meta: { title: '地图', icon: 'form' }
       }
     ]

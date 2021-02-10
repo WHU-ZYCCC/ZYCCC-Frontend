@@ -6,7 +6,7 @@
 
 <script>
 var center = new TMap.LatLng(30.538435, 114.357496)
-var map, markerLayer, markerCluster, infoWindow, circle
+var map, markerLayer, markerCluster, infoWindow, circle, curRadius = 70
 import { signInAPI } from '@/api/signin.js'
 export default {
   name: 'Index',
@@ -47,45 +47,49 @@ export default {
             'anchor': { x: 16, y: 32 }
           }),
           'centerStyle': new TMap.MarkerStyle({
-            'width': 35, // 点标记样式宽度（像素）
-            'height': 35, // 点标记样式高度（像素）
-            'src': 'https://cn.bing.com/images/search?view=detailV2&ccid=rbQKAYHP&id=3410925EFEFBAD969C5F154E102898FEFEA67EA0&thid=OIP.rbQKAYHP1OXcQO5t-gR0ZwAAAA&mediaurl=https%3a%2f%2fbkimg.cdn.bcebos.com%2fpic%2f7af40ad162d9f2d3a8b40d3da2ec8a136227ccbf%3fx-bce-process%3dimage%2fresize%2cm_lfit%2cw_268%2climit_1%2fformat%2cf_jpg&exph=261&expw=268&q=%e6%ad%a6%e6%b1%89%e5%a4%a7%e5%ad%a6%e8%ae%a1%e7%ae%97%e6%9c%ba%e5%ad%a6%e9%99%a2%e5%be%bd&simid=607999866080920056&ck=8ACA68726B11BCADC32D97D7CEB99026&selectedIndex=0&FORM=IRPRST'
+            'width': 50, // 点标记样式宽度（像素）
+            'height': 50, // 点标记样式高度（像素）
+            'src': 'https://raw.githubusercontent.com/WHU-ZYCCC/ZYCCC-Frontend/master/frontend/WHUCS.jpeg',
+            'anchor': { x: 16, y: 32 }
           })
         },
         // 点标记数据数组
-        geometries: [{
-          'id': '1', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
-          'styleId': 'myStyle', // 指定样式id
-          'position': center, // 点标记坐标位置
-          'properties': { // 自定义属性
-            'title': '计算机学院'
-          }
-        }
-        ]
+        // geometries: [{
+        //   'id': '1', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
+        //   'styleId': 'myStyle', // 指定样式id
+        //   'position': center, // 点标记坐标位置
+        //   'properties': { // 自定义属性
+        //     'title': '计算机学院'
+        //   }
+        // }
+        // ]
       })
-
-      // markerLayer.add([{
-      //   'id': '3', // 点标记唯一标识，后续如果有删除、修改位置等操作，都需要此id
-      //   'styleId': 'myStyle', // 指定样式id
-      //   'position': new TMap.LatLng(30.538406, 114.357467), // 点标记坐标位置
-      //   'properties': { // 自定义属性
-      //     'title': 'marker3'
-      //   }
-      // }
-      // ])
-
+      var setWindow = new TMap.InfoWindow({
+        map: map,
+        position: center,
+        offset: { x: 0, y: -50 } // 设置信息窗相对position偏移像素，为了使其显示在Marker的上方
+      })
+      setWindow.close()
       // 监听回调函数（非匿名函数）
-      var clickHandler = function(evt) {
-        evt.cluster.geometries.forEach(x => console.log(x.properties))
+      var f = function() {
+        console.log(curRadius)
       }
+      var clickHandler = function(evt) {
+        setWindow.open()
+        setWindow.setPosition(center)
+        var ConStr = `<div style="margin-bottom: 10px">设置半径(m)</div>` +
+          `<input value="${curRadius}"></input>` +
+          `<div style="margin-top: 10px"><button onclick="${f()}">确认</button></div>`
+        setWindow.setContent(ConStr)
+      }
+      markerLayer.on('click', clickHandler)
       infoWindow = new TMap.InfoWindow({
         map: map,
         position: new TMap.LatLng(30.538435, 114.357496),
         offset: { x: 0, y: -32 } // 设置信息窗相对position偏移像素，为了使其显示在Marker的上方
       })
       infoWindow.close()// 初始关闭信息窗关闭
-      // 监听marker点击事件
-      // markerLayer.on('click', clickHandler)
+
       signInAPI().getToday().then(res => {
         // 创建点聚合对象
         markerCluster = new TMap.MarkerCluster({
@@ -146,7 +150,7 @@ export default {
         geometries: [{
           styleId: 'circle',
           center: center, // 圆形中心点坐标
-          radius: 70	// 半径（单位：米）
+          radius: curRadius	// 半径（单位：米）
         }]
       })
     }

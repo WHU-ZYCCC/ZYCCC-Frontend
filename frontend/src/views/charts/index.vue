@@ -1,5 +1,5 @@
 <template>
-  <div class="Echarts">
+  <div class="Echarts" style="margin-top: 20px">
     <div id="chart1" style="width: 500px;height:500px; float: left" />
     <div id="chart2" style="width: 500px;height:500px; float: left" />
   </div>

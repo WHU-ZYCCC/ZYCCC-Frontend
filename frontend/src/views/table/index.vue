@@ -12,9 +12,9 @@
             <el-input size="small" placeholder="学号" />
           </el-form-item>
           <el-form-item label="日期">
-<!--            <el-select size="small" placeholder="日期">-->
-<!--              <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />-->
-<!--            </el-select>-->
+            <el-select v-model="selectDate" size="small" placeholder="日期">
+              <el-option v-for="(item, index) in dates" :key="index" :label="item" :value="item"/>
+            </el-select>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="mini">搜索</el-button>
@@ -78,17 +78,16 @@ export default {
   data() {
     return {
       currentPage: 1,
+      selectDate: null,
       pageSize: 6,
       tableData: [],
       allData: [],
-      author_levels: ['', 1, 2, 3, 4],
+      dates: [''],
       sortState: 0
     }
   },
   created() {
-    signInAPI().getAll().then(res => {
-      console.log(res.data)
-    })
+    this.getAll()
     this.tableData.push({
       name: 'dzy',
       number: 11111111,
@@ -97,6 +96,15 @@ export default {
     this.allData = this.tableData
   },
   methods: {
+    getAll() {
+      const that = this
+      signInAPI().getAll().then(res => {
+        that.dates = []
+        for (const key in res.data) {
+          that.dates.push(key)
+        }
+      })
+    },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage
       location.href = '#TableTop'

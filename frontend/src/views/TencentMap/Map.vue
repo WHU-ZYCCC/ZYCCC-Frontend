@@ -136,22 +136,24 @@ export default {
           infoWindow.setContent(conStr)// 设置信息窗内容
         })
       })
-      // 创建圆形覆盖物
-      circle = new TMap.MultiCircle({
-        map,
-        styles: { // 设置圆形样式
-          'circle': new TMap.CircleStyle({
-            'color': 'rgba(41,91,255,0.16)',
-            'showBorder': true,
-            'borderColor': 'rgba(41,91,255,1)',
-            'borderWidth': 2
-          })
-        },
-        geometries: [{
-          styleId: 'circle',
-          center: center, // 圆形中心点坐标
-          radius: curRadius	// 半径（单位：米）
-        }]
+      signInAPI().getRadius().then(radiusRes => {
+        // 创建圆形覆盖物
+        circle = new TMap.MultiCircle({
+          map,
+          styles: { // 设置圆形样式
+            'circle': new TMap.CircleStyle({
+              'color': 'rgba(41,91,255,0.16)',
+              'showBorder': true,
+              'borderColor': 'rgba(41,91,255,1)',
+              'borderWidth': 2
+            })
+          },
+          geometries: [{
+            styleId: 'circle',
+            center: center, // 圆形中心点坐标
+            radius: radiusRes.data	// 半径（单位：米）
+          }]
+        })
       })
     }
   }

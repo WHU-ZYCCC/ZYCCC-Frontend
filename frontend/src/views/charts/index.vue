@@ -21,19 +21,17 @@ export default {
   },
   created() {
     var that = this
-    for (var i = 0; i < 31; i++) {
+    for (var i = 0; i < 1; i++) {
       that.monthStatus[i] =
         [
           { value: 0, name: '区域外', itemStyle: { normal: { color: 'red' }}},
           { value: 0, name: '区域内', itemStyle: { normal: { color: 'green' }}}
         ]
-      that.monthStatus[i][0].value = Math.floor(Math.random() * 250)
-      that.monthStatus[i][1].value = Math.floor(Math.random() * 250)
     }
   },
   mounted() {
-    this.myEcharts1()
     this.myEcharts2()
+    this.myEcharts1()
   },
   methods: {
     myEcharts1() {
@@ -51,7 +49,7 @@ export default {
         },
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} KM'
+          formatter: '{a} <br/>{b} : {c} 人'
         },
         legend: {
           orient: 'vertical',
@@ -138,14 +136,18 @@ export default {
           }]
         }
         // 初始化echarts实例
+        that.monthStatus = []
         for (const key in res.data) {
           this.lineOption.xAxis.data.push(key)
           this.lineOption.series[0].data.push(res.data[key].length)
+          const status = [
+            { value: 0, name: '区域外', itemStyle: { normal: { color: 'red' }}},
+            { value: 0, name: '区域内', itemStyle: { normal: { color: 'green' }}}
+          ]
+          status[0].value = res.data[key].length
+          status[1].value = res.data[key].length * 2
+          that.monthStatus.push(status)
         }
-        // for (var i = 1; i <= 31; i++) {
-        //   this.lineOption.xAxis.data[i - 1] = 'Aug ' + i + 'th'
-        //   this.lineOption.series[0].data[i - 1] = Math.floor(Math.random() * 50)
-        // }
         this.lineEchart = echarts.init(document.getElementById('chart2'))
         // 使用制定的配置项和数据显示图表
         this.lineEchart.setOption(this.lineOption)

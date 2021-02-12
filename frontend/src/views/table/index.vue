@@ -18,7 +18,7 @@
           </el-form-item>
           <el-form-item>
             <el-button type="primary" size="mini">搜索</el-button>
-            <el-button type="plain" size="mini">刷新</el-button>
+            <el-button type="plain" size="mini" @click="ReFresh">刷新</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -122,7 +122,9 @@ export default {
       } else if (this.sortState === 2) {
         this.tableData.reverse()
       }
-      console.log(this.sortState)
+    },
+    ReFresh() {
+      this.getAll()
     }
   }
 }

@@ -79,7 +79,7 @@ export default {
     return {
       currentPage: 1,
       selectDate: null,
-      pageSize: 6,
+      pageSize: 7,
       tableData: [],
       allData: [],
       dates: [''],
@@ -100,9 +100,15 @@ export default {
       const that = this
       signInAPI().getAll().then(res => {
         that.dates = []
+        const table = []
         for (const key in res.data) {
           that.dates.push(key)
+          for (const id in res.data[key]) {
+            table.push(res.data[key][id])
+          }
         }
+        that.tableData = table
+        that.allData = table
       })
     },
     handleCurrentChange(currentPage) {

@@ -4,6 +4,9 @@ export function signInAPI() {
   return {
     getToday: function() {
       return axios.get(url + '/signin/getToday')
+    },
+    getAll: function() {
+      return axios.get(url + '/signin/getAll')
     }
   }
 }

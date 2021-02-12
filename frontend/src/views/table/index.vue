@@ -4,7 +4,7 @@
     <el-row>
       <el-col :span="3"><br></el-col>
       <el-col :span="21">
-        <el-form :inline="true" :model="addData">
+        <el-form :inline="true">
           <el-form-item label="姓名">
             <el-input size="small" placeholder="姓名" />
           </el-form-item>
@@ -12,13 +12,13 @@
             <el-input size="small" placeholder="学号" />
           </el-form-item>
           <el-form-item label="日期">
-            <el-select size="small" placeholder="日期">
-              <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />
-            </el-select>
+<!--            <el-select size="small" placeholder="日期">-->
+<!--              <el-option v-for="(item, index) in author_levels" :key="index" :label="item" :value="item" />-->
+<!--            </el-select>-->
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" size="mini" @click="">搜索</el-button>
-            <el-button type="plain" size="mini" @click="">刷新</el-button>
+            <el-button type="primary" size="mini">搜索</el-button>
+            <el-button type="plain" size="mini">刷新</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -71,6 +71,7 @@
 
 <script>
 import axios from 'axios'
+import { signInAPI } from '@/api/signin'
 
 export default {
   name: 'Index',
@@ -85,6 +86,9 @@ export default {
     }
   },
   created() {
+    signInAPI().getAll().then(res => {
+      console.log(res.data)
+    })
     this.tableData.push({
       name: 'dzy',
       number: 11111111,

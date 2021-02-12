@@ -7,6 +7,8 @@
 
 <script>
 import echarts from 'echarts'
+import { signInAPI } from '@/api/signin'
+
 export default {
   data() {
     return {
@@ -93,60 +95,66 @@ export default {
       this.pieEchart.setOption(this.pieOption)
     },
     myEcharts2() {
-      var that = this
-      this.lineOption = {
-        title: {
-          text: '签到数量',
-          x: 'left',
-          textStyle: {
-            color: 'black',
-            fontSize: 25
-          }
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c}'
-        },
-        legend: {
-          data: ['日期']
-        },
-        xAxis: {
-          data: []
-        },
-        yAxis: {
-        },
-        dataZoom: [
-          { // 这个dataZoom组件，默认控制x轴。
-            type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
-            start: 40, // 左边在 10% 的位置。
-            end: 60 // 右边在 60% 的位置。
+      signInAPI().getAll().then(res => {
+        var that = this
+        this.lineOption = {
+          title: {
+            text: '签到数量',
+            x: 'left',
+            textStyle: {
+              color: 'black',
+              fontSize: 25
+            }
           },
-          { // 这个dataZoom组件，也控制x轴。
-            type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
-            start: 40, // 左边在 10% 的位置。
-            end: 60 // 右边在 60% 的位置。
-          }
-        ],
-        series: [{
-          name: '访问量',
-          type: 'line',
-          data: [],
-          smooth: true // true 为平滑曲线，false为直线
-        }]
-      }
-      // 初始化echarts实例
-      for (var i = 1; i <= 31; i++) {
-        this.lineOption.xAxis.data[i - 1] = 'Aug ' + i + 'th'
-        this.lineOption.series[0].data[i - 1] = Math.floor(Math.random() * 50)
-      }
-      this.lineEchart = echarts.init(document.getElementById('chart2'))
-      // 使用制定的配置项和数据显示图表
-      this.lineEchart.setOption(this.lineOption)
-      this.lineEchart.on('click', function(params) {
-        console.log(params)
-        that.pieOption.series[0].data[0] = that.monthStatus[params.dataIndex][0]
-        that.pieOption.series[0].data[1] = that.monthStatus[params.dataIndex][1]
-        that.pieEchart.setOption(that.pieOption)
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c}'
+          },
+          legend: {
+            data: ['日期']
+          },
+          xAxis: {
+            data: []
+          },
+          yAxis: {
+          },
+          dataZoom: [
+            { // 这个dataZoom组件，默认控制x轴。
+              type: 'slider', // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+              start: 40, // 左边在 10% 的位置。
+              end: 60 // 右边在 60% 的位置。
+            },
+            { // 这个dataZoom组件，也控制x轴。
+              type: 'inside', // 这个 dataZoom 组件是 inside 型 dataZoom 组件
+              start: 40, // 左边在 10% 的位置。
+              end: 60 // 右边在 60% 的位置。
+            }
+          ],
+          series: [{
+            name: '签到人数',
+            type: 'line',
+            data: [],
+            smooth: true // true 为平滑曲线，false为直线
+          }]
+        }
+        // 初始化echarts实例
+        for (const key in res.data) {
+          this.lineOption.xAxis.data.push(key)
+          this.lineOption.series[0].data.push(res.data[key].length)
+        }
+        // for (var i = 1; i <= 31; i++) {
+        //   this.lineOption.xAxis.data[i - 1] = 'Aug ' + i + 'th'
+        //   this.lineOption.series[0].data[i - 1] = Math.floor(Math.random() * 50)
+        // }
+        this.lineEchart = echarts.init(document.getElementById('chart2'))
+        // 使用制定的配置项和数据显示图表
+        this.lineEchart.setOption(this.lineOption)
+        this.lineEchart.on('click', function(params) {
+          console.log(params)
+          that.pieOption.series[0].data[0] = that.monthStatus[params.dataIndex][0]
+          that.pieOption.series[0].data[1] = that.monthStatus[params.dataIndex][1]
+          that.pieEchart.setOption(that.pieOption)
+        })
       })
     }
   }

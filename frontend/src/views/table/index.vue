@@ -4,20 +4,20 @@
     <el-row>
       <el-col :span="3"><br></el-col>
       <el-col :span="21">
-        <el-form :inline="true">
+        <el-form v-model="searchData" :inline="true">
           <el-form-item label="姓名">
-            <el-input size="small" placeholder="姓名" />
+            <el-input v-model="searchData.name" size="small" placeholder="姓名" />
           </el-form-item>
           <el-form-item label="学号">
-            <el-input size="small" placeholder="学号" />
+            <el-input v-model="searchData.number" size="small" placeholder="学号" />
           </el-form-item>
           <el-form-item label="日期">
-            <el-select v-model="selectDate" size="small" placeholder="日期">
-              <el-option v-for="(item, index) in dates" :key="index" :label="item" :value="item"/>
+            <el-select v-model="searchData.date" size="small" placeholder="日期">
+              <el-option v-for="(item, index) in dates" :key="index" :label="item" :value="item" />
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" size="mini">搜索</el-button>
+            <el-button type="primary" size="mini" @click="Search">搜索</el-button>
             <el-button type="plain" size="mini" @click="ReFresh">刷新</el-button>
           </el-form-item>
         </el-form>
@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { signInAPI } from '@/api/signin'
 
 export default {
@@ -83,17 +82,16 @@ export default {
       tableData: [],
       allData: [],
       dates: [''],
-      sortState: 0
+      sortState: 0,
+      searchData: {
+        number: '',
+        name: '',
+        date: ''
+      }
     }
   },
   created() {
     this.getAll()
-    this.tableData.push({
-      name: 'dzy',
-      number: 11111111,
-      date: '2020-12-16'
-    })
-    this.allData = this.tableData
   },
   methods: {
     getAll() {
@@ -125,6 +123,14 @@ export default {
     },
     ReFresh() {
       this.getAll()
+    },
+    Search() {
+      const that = this
+      this.tableData = this.allData.filter(x => {
+        return (x.name.includes(that.searchData.name) || that.searchData.name === '') &&
+            (x.number.toString().includes(that.searchData.number.toString()) || that.searchData.number === '') &&
+            (x.date.includes(that.searchData.date) || that.searchData.date === '')
+      })
     }
   }
 }

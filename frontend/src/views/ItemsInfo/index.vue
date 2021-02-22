@@ -68,13 +68,26 @@
         <el-form-item label="器材名">
           <el-input v-model="curTool.toolInfo.name" />
         </el-form-item>
-        <el-tag
-          v-for="tag in curTool.toolInfo.aiTags"
-          :key="tag"
-          @close="DeleteTag(tag)"
-          closable>
-          {{tag}}
-        </el-tag>
+        <el-form-item label="标签" style="margin-bottom: 0px">
+          <el-tag
+            v-for="tag in curTool.toolInfo.aiTags"
+            :key="tag"
+            @close="DeleteTag(tag)"
+            closable>
+            {{tag}}
+          </el-tag>
+          <el-input
+            class="input-new-tag"
+            v-if="tagInputVisible"
+            v-model="tagInputValue"
+            ref="saveTagInput"
+            size="small"
+            @keyup.enter.native="handleTagInputConfirm"
+            @blur="handleTagInputConfirm"
+          >
+          </el-input>
+          <el-button v-else class="button-new-tag" size="small" @click="showTagInput">+ New Tag</el-button>
+        </el-form-item>
         <el-form-item label="器材介绍">
           <el-input v-model="curTool.toolInfo.description" type="textarea" size="small" placeholder="头像链接" />
         </el-form-item>
@@ -93,6 +106,8 @@ export default {
   name: 'Index',
   data() {
     return {
+      tagInputVisible: false,
+      tagInputValue: '',
       currentPage: 1,
       pageSize: 10,
       tableData: [],
@@ -157,6 +172,20 @@ export default {
       this.showDialogVisible = false
       this.curTool.toolInfo.aikey = this.curTool.toolInfo.aiTags.join(' ')
       this.$set(this.tableData, this.curIndex, this.curTool)
+    },
+    showTagInput() {
+      this.tagInputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+    handleTagInputConfirm() {
+      const inputValue = this.tagInputValue
+      if (inputValue) {
+        this.curTool.toolInfo.aiTags.push(inputValue)
+      }
+      this.tagInputVisible = false
+      this.tagInputValue = ''
     }
   }
 }

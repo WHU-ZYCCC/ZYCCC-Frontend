@@ -59,14 +59,24 @@
       />
     </div>
     <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
+      title="详情"
+      :visible.sync="showDialogVisible"
       :before-close="handleClose"
+      :width="600"
     >
-      <span>这是一段器材信息</span>
+      <el-form :model="curTool">
+        <el-form-item label="器材名">
+          <el-input v-model="curTool.toolInfo.name" />
+        </el-form-item>
+        <el-form-item label="标签">
+          <el-input v-model="curTool.toolInfo.aikey" size="small"/>
+        </el-form-item>
+        <el-form-item label="器材介绍">
+          <el-input v-model="curTool.toolInfo.description" type="textarea" size="small" placeholder="头像链接" />
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="showDialogVisible = false">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -82,7 +92,17 @@ export default {
       currentPage: 1,
       pageSize: 10,
       tableData: [],
-      dialogVisible: false
+      showDialogVisible: false,
+      curTool: {
+        toolInfo: {
+          id: null,
+          name: null,
+          description: null,
+          imagekey: null,
+          aikey: null
+        },
+        imgUrl: null
+      }
     }
   },
   created() {
@@ -101,8 +121,8 @@ export default {
       location.href = '#TableTop'
     },
     handleRead(index, row) {
-      console.log('Read ' + 'index:' + index + 'row:' + row)
-      this.dialogVisible = true
+      this.curTool = row
+      this.showDialogVisible = true
     },
     handleEdit(index, row) {
       console.log('Edit ' + 'index:' + index + 'row:' + row)

@@ -62,15 +62,19 @@
       title="详情"
       :visible.sync="showDialogVisible"
       :before-close="handleClose"
-      :width="600"
+      :show-close="false"
+      width="600"
     >
       <el-form :model="curTool">
         <el-form-item label="器材名">
           <el-input v-model="curTool.toolInfo.name" />
         </el-form-item>
-        <el-form-item label="标签">
-          <el-input v-model="curTool.toolInfo.aikey" size="small"/>
-        </el-form-item>
+        <el-tag
+          v-for="tag in curTool.toolInfo.aiTags"
+          :key="tag"
+          closable>
+          {{tag}}
+        </el-tag>
         <el-form-item label="器材介绍">
           <el-input v-model="curTool.toolInfo.description" type="textarea" size="small" placeholder="头像链接" />
         </el-form-item>
@@ -99,7 +103,8 @@ export default {
           name: null,
           description: null,
           imagekey: null,
-          aikey: null
+          aikey: null,
+          aiTags: null
         },
         imgUrl: null
       }
@@ -107,6 +112,10 @@ export default {
   },
   created() {
     toolAPI().getAll().then(res => {
+      res.data.forEach(toolVO => {
+        toolVO.toolInfo.aiTags = toolVO.toolInfo.aikey.split(' ')
+      })
+      console.log(res.data)
       this.tableData = res.data
     })
   },
@@ -146,6 +155,20 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
 </style>

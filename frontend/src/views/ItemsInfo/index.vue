@@ -13,39 +13,38 @@
     <el-table
       id="TableTop"
       :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column
-        align='center'
-        label="添加日期"
-      >
-        <template slot-scope="scope">
-          <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        align='center'
-        prop="title"
+        align="center"
+        prop="toolInfo.name"
         label="器材名"
-      >
-      </el-table-column>
+      />
       <el-table-column
-        align='center'
+        align="center"
+        prop="toolInfo.aikey"
+        label="器材标签"
+      />
+      <el-table-column
+        align="center"
         label="操作"
       >
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="primary"
-            @click="handleRead(scope.$index, scope.row)">查看</el-button>
+            @click="handleRead(scope.$index, scope.row)"
+          >查看</el-button>
           <el-button
             size="mini"
             type="warning"
-            @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleEdit(scope.$index, scope.row)">删除</el-button>
+            @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -62,17 +61,20 @@
     <el-dialog
       title="提示"
       :visible.sync="dialogVisible"
-      :before-close="handleClose">
+      :before-close="handleClose"
+    >
       <span>这是一段器材信息</span>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-  </span>
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
+import { toolAPI } from '@/api/tool'
+
 export default {
   name: 'Index',
   data() {
@@ -84,15 +86,16 @@ export default {
     }
   },
   created() {
-    var that = this
-    for (var i = 0; i < 147; i++) {
-      that.tableData[i] = {
-        date: '日期' + i,
-        title: '器材' + i
-      }
-    }
+    toolAPI().getAll().then(res => {
+      this.tableData = res.data
+    })
   },
   methods: {
+    getAll() {
+      toolAPI().getAll().then(res => {
+        this.tableData = res.data
+      })
+    },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage
       location.href = '#TableTop'
@@ -104,12 +107,20 @@ export default {
     handleEdit(index, row) {
       console.log('Edit ' + 'index:' + index + 'row:' + row)
     },
-    handleClose(done) {
-      this.$confirm('确认关闭？')
+    handleDelete(index, row) {
+      this.$confirm('确认删除？')
         .then(_ => {
-          done()
+          toolAPI().deleteById(row.toolInfo.id).then(res => {
+            if (res.data === 1) {
+              this.tableData.splice(index, 1)
+            }
+          })
         })
-        .catch(_ => {})
+        .catch(_ => {
+        })
+    },
+    handleClose() {
+      console.log("")
     }
   }
 }

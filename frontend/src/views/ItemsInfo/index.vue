@@ -61,7 +61,6 @@
     <el-dialog
       title="详情"
       :visible.sync="showDialogVisible"
-      :before-close="handleClose"
       :show-close="false"
       width="600"
     >
@@ -72,6 +71,7 @@
         <el-tag
           v-for="tag in curTool.toolInfo.aiTags"
           :key="tag"
+          @close="DeleteTag(tag)"
           closable>
           {{tag}}
         </el-tag>
@@ -80,7 +80,7 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="showDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="handleDialogConfirm">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -106,6 +106,7 @@ export default {
           aikey: null,
           aiTags: null
         },
+        curIndex: 0,
         imgUrl: null
       }
     }
@@ -131,6 +132,7 @@ export default {
     },
     handleRead(index, row) {
       this.curTool = row
+      this.curIndex = index
       this.showDialogVisible = true
     },
     handleEdit(index, row) {
@@ -148,8 +150,13 @@ export default {
         .catch(_ => {
         })
     },
-    handleClose() {
-      console.log("")
+    DeleteTag(tag) {
+      this.curTool.toolInfo.aiTags.splice(this.curTool.toolInfo.aiTags.indexOf(tag), 1)
+    },
+    handleDialogConfirm() {
+      this.showDialogVisible = false
+      this.curTool.toolInfo.aikey = this.curTool.toolInfo.aiTags.join(' ')
+      this.$set(this.tableData, this.curIndex, this.curTool)
     }
   }
 }

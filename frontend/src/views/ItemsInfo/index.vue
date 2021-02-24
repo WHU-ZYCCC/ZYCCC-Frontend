@@ -76,29 +76,28 @@
           <el-tag
             v-for="tag in curTool.toolInfo.aiTags"
             :key="tag"
+            closable
             @close="DeleteTag(tag)"
-            closable>
-            {{tag}}
+          >
+            {{ tag }}
           </el-tag>
           <el-input
-            class="input-new-tag"
             v-if="tagInputVisible"
-            v-model="tagInputValue"
             ref="saveTagInput"
+            v-model="tagInputValue"
+            class="input-new-tag"
             size="small"
             @keyup.enter.native="handleTagInputConfirm"
             @blur="handleTagInputConfirm"
-          >
-          </el-input>
+          />
           <el-button v-else class="button-new-tag" size="small" @click="showTagInput">+ New Tag</el-button>
         </el-form-item>
         <el-form-item label="器材介绍">
           <el-input v-model="curTool.toolInfo.description" type="textarea" size="small" />
         </el-form-item>
-        <el-form-item label="器材图片">
-        </el-form-item>
+        <el-form-item label="器材图片" />
         <div class="demo-image__lazy" style="text-align: center">
-          <el-image :src="curTool.imgUrl" lazy></el-image>
+          <el-image :src="curTool.imgUrl" lazy />
         </div>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -119,7 +118,9 @@
           <el-input v-model="uploadTool.description" type="textarea" size="small" placeholder="器材功能..." />
         </el-form-item>
         <el-form-item label="器材图片">
-          <el-button size="small" type="primary">点击上传</el-button>
+          <div class="upload-btn-box">
+            <input ref="filElem" type="file" class="upload-file" @change="getFile">
+          </div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -163,17 +164,14 @@ export default {
     }
   },
   created() {
-    toolAPI().getAll().then(res => {
-      res.data.forEach(toolVO => {
-        toolVO.toolInfo.aiTags = toolVO.toolInfo.aikey.split(' ')
-      })
-      console.log(res.data)
-      this.tableData = res.data
-    })
+    this.getAll()
   },
   methods: {
     getAll() {
       toolAPI().getAll().then(res => {
+        res.data.forEach(toolVO => {
+          toolVO.toolInfo.aiTags = toolVO.toolInfo.aikey.split(' ')
+        })
         this.tableData = res.data
       })
     },
@@ -185,9 +183,6 @@ export default {
       this.curTool = row
       this.curIndex = index
       this.showDialogVisible = true
-    },
-    handleEdit(index, row) {
-      console.log('Edit ' + 'index:' + index + 'row:' + row)
     },
     handleDelete(index, row) {
       this.$confirm('确认删除？')
@@ -238,6 +233,18 @@ export default {
     },
     handleUploadConfirm() {
       this.uploadDialogVisible = false
+      toolAPI().upload(this.uploadTool).then(res => {
+        this.getAll()
+      })
+    },
+    getFile() {
+      var that = this
+      const inputFile = this.$refs.filElem.files[0]
+      if (inputFile) {
+        that.uploadTool.file = inputFile
+      } else {
+        return
+      }
     }
   }
 }
@@ -258,5 +265,14 @@ export default {
   width: 90px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+.upload-btn-box {
+  margin-bottom: 10px;
+  button {
+    margin-right: 10px;
+  }
+  input[type=file] {
+    display: none;
+  }
 }
 </style>

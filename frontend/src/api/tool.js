@@ -29,23 +29,15 @@ export function toolAPI() {
       })
     },
     upload: function(tool) {
+      const data = new FormData()
+      data.append('name', tool.name)
+      data.append('description', tool.description)
+      data.append('file', tool.file)
       return axios({
         method: 'post',
         url: toolUrl + '/upload',
-        data: tool,
-        transformRequest: [
-          function(data) {
-            let ret = ''
-            for (const it in data) {
-              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-            }
-            ret = ret.substring(0, ret.lastIndexOf('&'))
-            return ret
-          }
-        ],
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        data: data,
+        headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryVCFSAonTuDbVCoAN' }
       })
     }
   }

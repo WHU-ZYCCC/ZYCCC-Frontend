@@ -171,7 +171,17 @@ export default {
     handleDialogConfirm() {
       this.showDialogVisible = false
       this.curTool.toolInfo.aikey = this.curTool.toolInfo.aiTags.join(' ')
-      this.$set(this.tableData, this.curIndex, this.curTool)
+      const tool = {
+        id: this.curTool.toolInfo.id,
+        name: this.curTool.toolInfo.name,
+        description: this.curTool.toolInfo.description,
+        aikey: this.curTool.toolInfo.aikey
+      }
+      console.log(tool)
+      toolAPI().update(tool).then(res => {
+        console.log(res.data)
+        this.$set(this.tableData, this.curIndex, this.curTool)
+      })
     },
     showTagInput() {
       this.tagInputVisible = true

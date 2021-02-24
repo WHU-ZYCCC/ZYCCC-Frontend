@@ -15,6 +15,7 @@
           style="alignment: center"
           size="mini"
           type="success"
+          @click="upload"
         >添加</el-button>
       </el-col>
     </el-row>
@@ -92,11 +93,37 @@
           <el-button v-else class="button-new-tag" size="small" @click="showTagInput">+ New Tag</el-button>
         </el-form-item>
         <el-form-item label="器材介绍">
-          <el-input v-model="curTool.toolInfo.description" type="textarea" size="small" placeholder="头像链接" />
+          <el-input v-model="curTool.toolInfo.description" type="textarea" size="small" />
         </el-form-item>
+        <el-form-item label="器材图片">
+        </el-form-item>
+        <div class="demo-image__lazy" style="text-align: center">
+          <el-image :src="curTool.imgUrl" lazy></el-image>
+        </div>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="handleDialogConfirm">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog
+      title="上传"
+      :visible.sync="uploadDialogVisible"
+      :show-close="false"
+      width="600"
+    >
+      <el-form :model="uploadTool">
+        <el-form-item label="器材名">
+          <el-input v-model="uploadTool.name" />
+        </el-form-item>
+        <el-form-item label="器材介绍">
+          <el-input v-model="uploadTool.description" type="textarea" size="small" placeholder="器材功能..." />
+        </el-form-item>
+        <el-form-item label="器材图片">
+          <el-button size="small" type="primary">点击上传</el-button>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="handleUploadConfirm">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -110,6 +137,12 @@ export default {
   data() {
     return {
       tagInputVisible: false,
+      uploadDialogVisible: false,
+      uploadTool: {
+        name: '',
+        description: '',
+        file: ''
+      },
       tagInputValue: '',
       currentPage: 1,
       pageSize: 10,
@@ -199,6 +232,12 @@ export default {
       }
       this.tagInputVisible = false
       this.tagInputValue = ''
+    },
+    upload() {
+      this.uploadDialogVisible = true
+    },
+    handleUploadConfirm() {
+      this.uploadDialogVisible = false
     }
   }
 }

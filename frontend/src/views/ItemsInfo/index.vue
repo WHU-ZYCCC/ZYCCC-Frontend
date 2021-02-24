@@ -1,7 +1,15 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="22"><br></el-col>
+    <el-row style="margin-top: 5px">
+      <el-col :span="19"><br></el-col>
+      <el-col :span="2">
+        <el-button
+          style="alignment: center"
+          size="mini"
+          type="primary"
+          @click="getAll"
+        >刷新</el-button>
+      </el-col>
       <el-col :span="1">
         <el-button
           style="alignment: center"
@@ -34,12 +42,7 @@
             size="mini"
             type="primary"
             @click="handleRead(scope.$index, scope.row)"
-          >查看</el-button>
-          <el-button
-            size="mini"
-            type="warning"
-            @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button>
+          >查看/编辑</el-button>
           <el-button
             size="mini"
             type="danger"

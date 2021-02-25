@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ resres }}</div>
-    <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="TestClick()">Login</el-button>
   </div>
 </template>
 

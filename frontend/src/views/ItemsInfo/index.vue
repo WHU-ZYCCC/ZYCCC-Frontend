@@ -9,7 +9,7 @@
           </el-form-item>
           <el-form-item label="标签">
             <el-select v-model="searchData.tags" size="small" placeholder="日期">
-              <el-option v-for="(item, index) in tags" :key="index" :label="item" :value="item" />
+              <el-option v-for="(item, index) in tagsSet" :key="index" :label="item" :value="item" />
             </el-select>
           </el-form-item>
           <el-form-item style="margin-left: 10px">
@@ -143,6 +143,7 @@ export default {
         name: null,
         tags: null
       },
+      tagsSet: new Set(),
       tagInputVisible: false,
       uploadDialogVisible: false,
       uploadTool: {
@@ -177,6 +178,9 @@ export default {
       toolAPI().getAll().then(res => {
         res.data.forEach(toolVO => {
           toolVO.toolInfo.aiTags = toolVO.toolInfo.aikey.split(' ')
+          toolVO.toolInfo.aiTags.forEach(tag => {
+            this.tagsSet.add(tag)
+          })
         })
         this.tableData = res.data
       })
@@ -251,6 +255,9 @@ export default {
       } else {
         return
       }
+    },
+    Search() {
+      
     }
   }
 }

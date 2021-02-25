@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row style="margin-top: 5px;">
-      <el-col :span="5"><br></el-col>
-      <el-col :span="19">
+      <el-col :span="3"><br></el-col>
+      <el-col :span="19" style="margin-left: 25px">
         <el-form v-model="searchData" :inline="true">
           <el-form-item label="器材名">
             <el-input v-model="searchData.name" size="small" placeholder="姓名" />
@@ -12,7 +12,7 @@
               <el-option v-for="(item, index) in tagsSet" :key="index" :label="item" :value="item" />
             </el-select>
           </el-form-item>
-          <el-form-item style="margin-left: 10px">
+          <el-form-item style="margin-left: 30px">
             <el-button type="primary" size="mini" @click="Search">搜索</el-button>
             <el-button type="plain" size="mini" @click="getAll">刷新</el-button>
             <el-button type="success" size="mini" @click="upload">添加</el-button>
@@ -140,8 +140,8 @@ export default {
   data() {
     return {
       searchData: {
-        name: null,
-        tags: null
+        name: '',
+        tags: ''
       },
       tagsSet: new Set(),
       tagInputVisible: false,
@@ -155,6 +155,7 @@ export default {
       currentPage: 1,
       pageSize: 10,
       tableData: [],
+      allTableData: [],
       showDialogVisible: false,
       curTool: {
         toolInfo: {
@@ -175,6 +176,7 @@ export default {
   },
   methods: {
     getAll() {
+      this.tagsSet.add('')
       toolAPI().getAll().then(res => {
         res.data.forEach(toolVO => {
           toolVO.toolInfo.aiTags = toolVO.toolInfo.aikey.split(' ')
@@ -183,6 +185,7 @@ export default {
           })
         })
         this.tableData = res.data
+        this.allTableData = res.data
       })
     },
     handleCurrentChange(currentPage) {
@@ -257,7 +260,10 @@ export default {
       }
     },
     Search() {
-      
+      this.tableData = this.allTableData.filter(toolVO => {
+        return (this.searchData.name === '' || toolVO.toolInfo.name.includes(this.searchData.name)) &&
+          (this.searchData.tags === '' || toolVO.toolInfo.aiTags.findIndex(x => x === this.searchData.tags) !== -1)
+      })
     }
   }
 }
@@ -278,14 +284,5 @@ export default {
   width: 90px;
   margin-left: 10px;
   vertical-align: bottom;
-}
-.upload-btn-box {
-  margin-bottom: 10px;
-  button {
-    margin-right: 10px;
-  }
-  input[type=file] {
-    display: none;
-  }
 }
 </style>

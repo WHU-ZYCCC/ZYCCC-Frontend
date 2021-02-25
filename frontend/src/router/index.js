@@ -88,7 +88,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'Charts',
         component: () => import('@/views/charts/index'),
-        meta: { title: '图表', icon: 'chart' }
+        meta: { title: '签到统计图', icon: 'chart' }
       }
     ]
   },
@@ -101,7 +101,7 @@ export const constantRoutes = [
         path: 'index',
         name: 'map',
         component: () => import('@/views/TencentMap/Map'),
-        meta: { title: '地图', icon: 'form' }
+        meta: { title: '签到地图', icon: 'form' }
       }
     ]
   },
@@ -109,29 +109,29 @@ export const constantRoutes = [
   {
     path: '/table',
     component: Layout,
-    name: '表格',
+    name: '签到统计表',
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: '表格', icon: 'table' }
+        meta: { title: '签到统计表', icon: 'table' }
       }
     ]
   },
 
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     }
+  //   ]
+  // },
   //
   // {
   //   path: '/nested',

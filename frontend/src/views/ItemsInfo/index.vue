@@ -1,23 +1,25 @@
 <template>
   <div>
-    <el-row style="margin-top: 5px">
-      <el-col :span="19"><br></el-col>
-      <el-col :span="2">
-        <el-button
-          style="alignment: center"
-          size="mini"
-          type="primary"
-          @click="getAll"
-        >刷新</el-button>
+    <el-row style="margin-top: 5px;">
+      <el-col :span="5"><br></el-col>
+      <el-col :span="19">
+        <el-form v-model="searchData" :inline="true">
+          <el-form-item label="器材名">
+            <el-input v-model="searchData.name" size="small" placeholder="姓名" />
+          </el-form-item>
+          <el-form-item label="标签">
+            <el-select v-model="searchData.tags" size="small" placeholder="日期">
+              <el-option v-for="(item, index) in tags" :key="index" :label="item" :value="item" />
+            </el-select>
+          </el-form-item>
+          <el-form-item style="margin-left: 10px">
+            <el-button type="primary" size="mini" @click="Search">搜索</el-button>
+            <el-button type="plain" size="mini" @click="getAll">刷新</el-button>
+            <el-button type="success" size="mini" @click="upload">添加</el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
-      <el-col :span="1">
-        <el-button
-          style="alignment: center"
-          size="mini"
-          type="success"
-          @click="upload"
-        >添加</el-button>
-      </el-col>
+      <el-col :span="3"></el-col>
     </el-row>
     <el-table
       id="TableTop"
@@ -137,6 +139,10 @@ export default {
   name: 'Index',
   data() {
     return {
+      searchData: {
+        name: null,
+        tags: null
+      },
       tagInputVisible: false,
       uploadDialogVisible: false,
       uploadTool: {
